@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Grocery Store Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+</head>
+<body onload="checkAuth()">
+  <div class="header">
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <img src="images/logo.png" alt="Logo" class="logo">
+      <h1>Grocery Sales & Profit Dashboard</h1>
+    </div>
+    <div class="header-right">
+      <div class="filter-section">
+        <div class="file-upload">
+          <label for="dataFile"><i class="fas fa-file-upload"></i> Upload Data</label>
+          <input type="file" id="dataFile" accept=".csv">
+          <span class="file-info">No file selected</span>
+        </div>
+
+        <div class="filter">
+          <label for="yearSelect"><i class="fas fa-calendar-alt"></i> Year:</label>
+          <select id="yearSelect"></select>
+        </div>
+
+        <div class="filter">
+          <label for="fromDate">From:</label>
+          <input type="date" id="fromDate">
+          <label for="toDate">To:</label>
+          <input type="date" id="toDate">
+          <button onclick="applyDateFilter()">Apply</button>
+        </div>
+
+        <button class="export-btn" onclick="exportCharts()">
+          <i class="fas fa-download"></i> Export Charts
+        </button>
+        <button onclick="toggleDarkMode()">🌓 Dark Mode</button>
+      </div>
+      <button class="logout-btn" onclick="logout()">
+        <i class="fas fa-sign-out-alt"></i> Logout
+      </button>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button id="tab-home" class="active" onclick="showTab('home')">
+      <i class="fas fa-chart-pie"></i> Overview
+    </button>
+    <button id="tab-sales" onclick="showTab('sales')">
+      <i class="fas fa-line-chart"></i> Sales
+    </button>
+    <button id="tab-profit" onclick="showTab('profit')">
+      <i class="fas fa-money-bill-wave"></i> Profit
+    </button>
+  </div>
+
+  <div id="home" class="tab-content">
+    <div class="cards-grid">
+      <div class="card clickable" id="totalSalesCard">
+        <div class="card-title">Total Sales</div>
+        <div id="totalSales" class="card-value">–</div>
+      </div>
+      <div class="card clickable" id="totalProfitCard">
+        <div class="card-title">Total Profit</div>
+        <div id="totalProfit" class="card-value">–</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Profit Margin</div>
+        <div id="profitMargin" class="card-value">–</div>
+      </div>
+    </div>
+    
+    <div class="top-tables-container" id="topTablesContainer" style="display: none;">
+      <div id="salesTopTable"></div>
+      <div id="profitTopTable" style="margin-top: 20px;"></div>
+    </div>
+  </div>
+
+  <div id="sales" class="tab-content" style="display:none;">
+    <div class="charts-grid">
+      <canvas id="salesTimeChart"></canvas>
+      <canvas id="salesCatChart"></canvas>
+      <canvas id="salesSubCatPie"></canvas>
+    </div>
+    <div id="topSalesTable"></div>
+  </div>
+
+  <div id="profit" class="tab-content" style="display:none;">
+    <div class="charts-grid">
+      <canvas id="profitTimeChart"></canvas>
+      <canvas id="profitCatChart"></canvas>
+      <canvas id="profitSubCatPie"></canvas>
+    </div>
+    <div id="topProfitTable"></div>
+  </div>
+
+  <script src="auth.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
